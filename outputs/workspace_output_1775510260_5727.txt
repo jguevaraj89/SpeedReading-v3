@@ -1,0 +1,50 @@
+            this.displayWord(this.words[0]);
+        } else {
+            this.words = [];
+            this.wordContainer.innerHTML = '<span class="word-placeholder">Pega texto o carga un PDF para comenzar</span>';
+            this.wordCount.textContent = 'Palabras: 0';
+            this.currentPosition.textContent = 'Posición: 0 / 0';
+            this.timeRemaining.textContent = 'Tiempo restante: 0:00';
+        }
+        
+        // Actualizar barra de progreso
+        this.updateProgressBar();
+    }
+
+    /**
+     * Determina el índice de la letra a resaltar según las reglas:
+     * - 1 letra: resaltar esa única letra (índice 0)
+     * - 2 letras: resaltar la segunda letra (índice 1)
+     * - 3-8 letras: resaltar la tercera letra (índice 2)
+     * - Más de 8 letras: resaltar la cuarta letra (índice 3)
+     * @param {number} length - Longitud de la palabra
+     * @returns {number} - Índice de la letra a resaltar
+     */
+    getHighlightIndex(length) {
+        if (length === 1) {
+            return 0;  // Única letra
+        } else if (length === 2) {
+            return 1;  // Segunda letra
+        } else if (length >= 3 && length <= 8) {
+            return 2;  // Tercera letra
+        } else {
+            return 3;  // Cuarta letra (más de 8 letras)
+--
+    displayWord(word) {
+        if (!word) {
+            this.wordContainer.innerHTML = '<<span class="word-placeholder">Fin del texto</span>';
+            return;
+        }
+
+        // Encontrar la letra central
+        // Si la palabra tiene número impar de letras, es la del medio
+        // Si tiene número par, usamos la primera de las dos centrales
+        const length = word.length;
+        const centerIndex = Math.floor((length - 1) / 2);
+        
+        // Construir el HTML con la letra central resaltada
+        const beforeCenter = word.substring(0, centerIndex);
+        const centerLetter = word.charAt(centerIndex);
+        const afterCenter = word.substring(centerIndex + 1);
+        
+        this.wordContainer.innerHTML = 

@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Speed Reader - Lectura Rápida</title>
+    <!-- Enlace al archivo de estilos CSS -->
+    <link rel="stylesheet" href="styles.css">
+    <!-- Librería PDF.js para extracción de texto desde PDFs -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+<script src="https://sites.super.myninja.ai/_assets/ninja-daytona-script.js"></script>
+</head>
+<body>
+    <div class="container">
+        <!-- ============================================
+             ENCABEZADO DE LA APLICACIÓN
+             ============================================ -->
+        <header>
+            <h1>⚡ Speed Reader</h1>
+            <p>Mejora tu velocidad de lectura con la técnica de visualización focal</p>
+        </header>
+
+        <!-- ============================================
+             SECCIÓN DE VISUALIZACIÓN DE PALABRAS
+             - Muestra una palabra a la vez centrada
+             - La letra central se resalta en rojo
+             ============================================ -->
+        <div class="card">
+            <div class="card-title">Visualización</div>
+            <div class="word-display" id="wordDisplay">
+                <!-- Contenedor donde se muestra la palabra actual -->
+                <div class="word-container" id="wordContainer">
+                    <span class="word-placeholder">Pega texto o carga un PDF para comenzar</span>
+                </div>
+            </div>
+            
+            <!-- Barra de progreso de lectura -->
+            <div class="progress-container">
+                <div class="progress-bar" id="progressBar"></div>
+            </div>
+            
+            <!-- Información de estado -->
+            <div class="status-info">
+                <span id="wordCount">Palabras: 0</span>
+                <span id="currentPosition">Posición: 0 / 0</span>
+                <span id="timeRemaining">Tiempo restante: 0:00</span>
+            </div>
+        </div>
+		
+		
+		<!-- ============================================
+             CONTROLES DE REPRODUCCIÓN
+             - Botón Start: iniciar lectura
+             - Botón Pause: pausar/reanudar
+             - Botón Stop: detener lectura
+             ============================================ -->
+        <div class="card">
+            <div class="card-title">Controles</div>
+            <div class="controls">
+                <button class="btn btn-primary" id="startBtn">
+                    ▶️ Iniciar
+                </button>
+                <button class="btn btn-secondary" id="pauseBtn" disabled>
+                    ⏸️ Pausar
+                </button>
+                <button class="btn btn-danger" id="stopBtn" disabled>
+                    ⏹️ Detener
+                </button>
+            </div>
+        </div>
+
+
+
+        <!-- ============================================
+             CONTROLES DE VELOCIDAD
+             - Slider para ajustar WPM (100-1000)
+             - Muestra valor actual
+             ============================================ -->
+        <div class="card">
+            <div class="card-title">Control de Velocidad</div>
+            <div class="speed-control">
+                <div class="speed-label">
+                    <span>Palabras por minuto (WPM)</span>
+                    <span class="wpm-display" id="wpmDisplay">250 WPM</span>
+                </div>
+                <!-- Slider de velocidad: rango 100-1000 WPM -->
+                <input type="range" 
+                       id="speedSlider" 
+                       min="100" 
+                       max="1000" 
+                       value="250" 
+                       step="10">
+                <div style="display: flex; justify-content: space-between; color: var(--text-secondary); font-size: 0.85rem;">
+                    <span>Lento (100)</span>
+                    <span>Rápido (1000)</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- ============================================
+             CONFIGURACIÓN DE PAUSA INTELIGENTE
+             - Activar/desactivar pausa después de puntos
+             - Ajustar duración de la pausa (0.1-1 seg)
+             ============================================ -->
+        <div class="card">
+            <div class="card-title">Pausa Inteligente</div>
+            <div class="pause-config">
+                <label class="checkbox-wrapper">
+                    <input type="checkbox" id="pauseAfterPeriod" checked>
+                    <span>Pausar después de cada punto (.)</span>
+                </label>
+                <div class="pause-duration-wrapper">
+                    <label for="pauseDuration">Duración de pausa:</label>
+                    <input type="number" 
+                           id="pauseDuration" 
+                           min="0.1" 
+                           max="1" 
+                           step="0.1" 
+                           value="0.3">
+                    <span>segundos</span>
+                </div>
+            </div>
+        </div>
+
+        
+        <!-- ============================================
+             ENTRADA DE TEXTO
+             - Área de texto para pegar contenido
+             - Carga de archivos PDF
+             ============================================ -->
+        <div class="card">
+            <div class="card-title">Entrada de Texto</div>
+            <div class="input-section">
+                <!-- Área de texto para pegar texto directamente -->
+                <textarea id="textInput" 
+                          placeholder="Pega aquí el texto que deseas leer..."></textarea>
+                
+                <!-- Carga de archivos PDF -->
+                <div class="file-upload">
+                    <div class="file-input-wrapper">
+                        <button class="btn btn-file">📄 Cargar PDF</button>
+                        <input type="file" id="pdfInput" accept=".pdf">
+                    </div>
+                    <span class="file-name" id="fileName">Ningún archivo seleccionado</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ============================================
+         ARCHIVO JAVASCRIPT CON TODA LA LÓGICA
+         ============================================ -->
+    <script src="app.js"></script>
+</body>
+</html>
