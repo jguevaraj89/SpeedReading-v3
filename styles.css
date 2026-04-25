@@ -104,7 +104,7 @@ header p {
     content: '';
     position: absolute;
     top: 25%;
-    left: 50%;
+    left: calc(35% - 3ch);
     transform: translateX(-50%);
     width: 0;
     height: 0;
@@ -120,8 +120,15 @@ header p {
     position: absolute;
     top: 0;
     bottom: 0;
-    left: 50%;
+    
+    /* Posición fija desplazada 5 caracteres a la izquierda */
+    //position: absolute;
+    left: calc(35% - 3ch);
     transform: translateX(-50%);
+     justify-self: center;
+
+
+    
     width: 1px;
     background: rgba(255, 255, 255, 0.05);
 }
@@ -145,8 +152,11 @@ header p {
 
 /* Parte izquierda de la palabra (antes de la letra roja) */
 .word-part-left {
-    text-align: right;
-    justify-self: end;
+    text-align: left;
+    position: absolute;
+    right: calc(75% - 1.6ch);
+    justify-self: left;
+    justify-items: start;
     /* Sin margen extra para mantener espaciado natural */
 }
 
@@ -154,13 +164,19 @@ header p {
 .highlight-letter {
     color: var(--accent-color);
     text-shadow: 0 0 20px rgba(239, 68, 68, 0.5);
-    /* Sin padding ni margen extra */
     justify-self: center;
+    /* Posición fija desplazada 5 caracteres a la izquierda */
+    position: absolute;
+    left: calc(50% - 5ch);
+    transform: translateX(-50%);
 }
 
 /* Parte derecha de la palabra (después de la letra roja) */
 .word-part-right {
+    position: absolute;
+    left: calc(50% - 4.5ch);
     text-align: left;
+   
     justify-self: start;
 }
 
@@ -168,6 +184,8 @@ header p {
 .word-placeholder {
     color: rgba(255, 255, 255, 0.3);
     font-size: 1.5rem;
+     position: absolute;
+    justify-self: center;
 }
 
 /* Controles de velocidad */
