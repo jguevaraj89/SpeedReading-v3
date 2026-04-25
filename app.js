@@ -74,7 +74,7 @@ class SpeedReader {
             this.updateTimeRemaining();
             this.saveSettings();
         });
-
+	// Configuración de pausa inteligente
         this.pauseAfterPeriodCheckbox.addEventListener('change', () => {
             this.pauseAfterPeriod = this.pauseAfterPeriodCheckbox.checked;
             this.saveSettings();
@@ -84,11 +84,15 @@ class SpeedReader {
             this.pauseDuration = parseFloat(this.pauseDurationInput.value);
             this.saveSettings();
         });
-
+	// Controles de reproducción
         this.startBtn.addEventListener('click', () => this.start());
         this.pauseBtn.addEventListener('click', () => this.togglePause());
         this.stopBtn.addEventListener('click', () => this.stop());
-        this.textInput.addEventListener('input', () => this.processText());
+        
+	// Entrada de texto
+	this.textInput.addEventListener('input', () => this.processText());
+      
+	// Carga de PDF
         this.pdfInput.addEventListener('change', (e) => this.handlePDFUpload(e));
     }
 
